@@ -2,7 +2,7 @@
 
 namespace MitsAdvisor.Web.Models
 {
-	public class Restaurant
+	public class Menu
 	{
 		public int Id { get; set; }
 
@@ -10,5 +10,6 @@ namespace MitsAdvisor.Web.Models
 		[MaxLength(100)]
 		public string? Name { get; set; }
 
+		public ICollection<MenuItem>? MenuItems { get; set;}
 	}
 }

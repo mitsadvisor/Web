@@ -20,5 +20,7 @@ namespace MitsAdvisor.Web.Data
 		}
 
 		public DbSet<Restaurant> Restaurants=> Set<Restaurant>();
+		public DbSet<Menu> Menus => Set<Menu>();
+		public DbSet<MenuItem> MenuItems => Set<MenuItem>();
 	}
 }

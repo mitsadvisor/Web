@@ -10,5 +10,7 @@ namespace MitsAdvisor.Web.Models
 		[MaxLength(100)]
 		public string? Name { get; set; }
 
+		public ICollection<Menu>? Menus { get; set; }
+
 	}
 }

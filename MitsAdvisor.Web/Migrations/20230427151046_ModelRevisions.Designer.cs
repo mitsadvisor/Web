@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MitsAdvisor.Web.Data;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace MitsAdvisor.Web.Migrations
 {
     [DbContext(typeof(MitsadvisorContext))]
-    partial class MitsadvisorContextModelSnapshot : ModelSnapshot
+    [Migration("20230427151046_ModelRevisions")]
+    partial class ModelRevisions
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -35,12 +38,7 @@ namespace MitsAdvisor.Web.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("character varying(100)");
 
-                    b.Property<int?>("RestaurantId")
-                        .HasColumnType("integer");
-
                     b.HasKey("Id");
-
-                    b.HasIndex("RestaurantId");
 
                     b.ToTable("Menus");
                 });
@@ -89,13 +87,6 @@ namespace MitsAdvisor.Web.Migrations
                     b.ToTable("Restaurants");
                 });
 
-            modelBuilder.Entity("MitsAdvisor.Web.Models.Menu", b =>
-                {
-                    b.HasOne("MitsAdvisor.Web.Models.Restaurant", null)
-                        .WithMany("Menus")
-                        .HasForeignKey("RestaurantId");
-                });
-
             modelBuilder.Entity("MitsAdvisor.Web.Models.MenuItem", b =>
                 {
                     b.HasOne("MitsAdvisor.Web.Models.Menu", null)
@@ -106,11 +97,6 @@ namespace MitsAdvisor.Web.Migrations
             modelBuilder.Entity("MitsAdvisor.Web.Models.Menu", b =>
                 {
                     b.Navigation("MenuItems");
-                });
-
-            modelBuilder.Entity("MitsAdvisor.Web.Models.Restaurant", b =>
-                {
-                    b.Navigation("Menus");
                 });
 #pragma warning restore 612, 618
         }

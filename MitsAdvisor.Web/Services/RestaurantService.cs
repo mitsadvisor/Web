@@ -1,42 +1,59 @@
-﻿using MitsAdvisor.Web.Models;
+﻿using Microsoft.EntityFrameworkCore;
+using MitsAdvisor.Web.Data;
+using MitsAdvisor.Web.Models;
 
 namespace MitsAdvisor.Web.Services
 {
 	public class RestaurantService
 	{
-		static List<Restaurant> Restaurants { get; }
-		static int nextId = 3;
-		static RestaurantService()
+		private readonly MitsadvisorContext _dbContext;
+        public RestaurantService(MitsadvisorContext dbContext)
+        {
+			_dbContext = dbContext;
+        }
+
+		public IEnumerable<Restaurant> GetAll() => _dbContext.Restaurants.AsNoTracking().ToList();
+
+		public Restaurant? GetById(int id)
 		{
-			Restaurants = new List<Restaurant>()
-			{
-				new Restaurant{Id=1, Name="Elaikon"},
-				new Restaurant{Id=2, Name=" Kyr Aristos" }
-			};
+			return _dbContext.Restaurants
+				.Include(r => r.Menus)
+				.AsNoTracking()
+				.SingleOrDefault(r=>r.Id==id);
 		}
-
-		public static List<Restaurant> GetAll() => Restaurants;
-
-		public static Restaurant? Get(int id) => Restaurants.FirstOrDefault(r => r.Id == id);
 		
-		public static void Add(Restaurant restaurant)
+		public Restaurant Create(Restaurant newRestaurant)
 		{
-			restaurant.Id = nextId++;
-			Restaurants.Add(restaurant);
+			_dbContext.Restaurants.Add(newRestaurant);
+			_dbContext.SaveChanges();
+
+			return newRestaurant;
 		}
 
-		public static void Delete(int id)
+		public void AddMenu(int restaurantId, int menuId)
 		{
-			var restaurant = Get(id);
-			if (restaurant != null)
-				Restaurants.Remove(restaurant);
+			var restaurantToUpdate = _dbContext.Restaurants.Find(restaurantId);
+			var menuToAdd = _dbContext.Menus.Find(menuId);
+
+			if (restaurantToUpdate is null || menuToAdd is null) 
+				throw new InvalidOperationException("Pizza or topping does not exist");
+
+			restaurantToUpdate.Menus ??= new List<Menu>();
+
+			restaurantToUpdate.Menus.Add(menuToAdd);
+
+			_dbContext.SaveChanges();
 		}
 
-		public static void Update(Restaurant restaurant)
+		public void DeleteById(int id)
 		{
-			var index = Restaurants.FindIndex(r=>r.Id == restaurant.Id);
-			if (index == -1) return;
-			Restaurants[index] = restaurant;
+			var restaurantToDelete = _dbContext.Restaurants.Find(id);
+
+			if (restaurantToDelete is not null)
+			{
+				_dbContext.Restaurants.Remove(restaurantToDelete);
+				_dbContext.SaveChanges();
+			}
 		}
 
 	}

@@ -9,14 +9,20 @@ namespace MitsAdvisor.Web.Controllers
 	[Route("api/[controller]")]
 	public class RestaurantController : ControllerBase
 	{
+		RestaurantService _service;
+        public RestaurantController(RestaurantService restaurantService)
+        {
+            _service = restaurantService;
+        }
+
 		[HttpGet]
 		public ActionResult<List<Restaurant>> GetAll() =>
-			RestaurantService.GetAll();
+			_service.GetAll().ToList();
 
 		[HttpGet("{id}")]
 		public ActionResult<Restaurant> Get(int id)
 		{
-			var restaurant = RestaurantService.Get(id);
+			var restaurant = _service.GetById(id);
 
 			if (restaurant == null) return NotFound();
 
@@ -26,30 +32,30 @@ namespace MitsAdvisor.Web.Controllers
 		[HttpPost]
 		public IActionResult Create(Restaurant newRestaurant)
 		{
-			RestaurantService.Add(newRestaurant);
+			_service.Create(newRestaurant);
 			return CreatedAtAction(nameof(Get), new { id = newRestaurant.Id }, newRestaurant);
 		}
 
-		[HttpPut("id")]
-		public IActionResult Update(int id, Restaurant restaurant)
-		{
-			if (id != restaurant.Id) return BadRequest();
+		//[HttpPut("id")]
+		//public IActionResult Update(int id, Restaurant restaurant)
+		//{
+		//	if (id != restaurant.Id) return BadRequest();
 
-			var existingRestaurant = RestaurantService.Get(id);
-			if (existingRestaurant is null) return NotFound();
-			RestaurantService.Update(restaurant);
+		//	var existingRestaurant = _service.GetById(id);
+		//	if (existingRestaurant is null) return NotFound();
+		//	_service..Update(restaurant);
 
-			return NoContent();
-		}
+		//	return NoContent();
+		//}
 
 		[HttpDelete("id")]
 		public IActionResult Delete(int id)
 		{
-			var restaurant = RestaurantService.Get(id);
+			var restaurant = _service.GetById(id);
 
 			if (restaurant is null) return NotFound();
 
-			RestaurantService.Delete(id);
+			_service.DeleteById(id);
 
 			return NoContent();
 		}

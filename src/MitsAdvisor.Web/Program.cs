@@ -1,5 +1,5 @@
-using MitsAdvisor.MitsAdvisor.Web.Data;
-using MitsAdvisor.MitsAdvisor.Web.Services;
+using MitsAdvisor.Web.Data;
+using MitsAdvisor.Web.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 

@@ -1,8 +1,7 @@
-namespace MitsAdvisor.MitsAdvisor.Web.Data;
-
-using global::MitsAdvisor.MitsAdvisor.Web.Models;
+namespace MitsAdvisor.Web.Data;
 
 using Microsoft.EntityFrameworkCore;
+using MitsAdvisor.Web.Models;
 
 public class MitsadvisorContext(IConfiguration configuration)
   : DbContext

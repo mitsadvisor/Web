@@ -1,4 +1,4 @@
-namespace MitsAdvisor.MitsAdvisor.Web.Models;
+namespace MitsAdvisor.Web.Models;
 
 using System.ComponentModel.DataAnnotations;
 

@@ -1,6 +1,6 @@
-namespace MitsAdvisor.MitsAdvisor.Web.Data;
+namespace MitsAdvisor.Web.Data;
 
-using global::MitsAdvisor.MitsAdvisor.Web.Models;
+using MitsAdvisor.Web.Models;
 
 public static class DbInitializer
 {

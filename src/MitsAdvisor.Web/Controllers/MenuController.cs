@@ -1,4 +1,4 @@
-﻿namespace MitsAdvisor.MitsAdvisor.Web.Controllers;
+namespace MitsAdvisor.Web.Controllers;
 
 using Microsoft.AspNetCore.Mvc;
 

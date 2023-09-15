@@ -1,9 +1,9 @@
-namespace MitsAdvisor.MitsAdvisor.Web.Controllers;
-
-using global::MitsAdvisor.MitsAdvisor.Web.Models;
-using global::MitsAdvisor.MitsAdvisor.Web.Services;
+namespace MitsAdvisor.Web.Controllers;
 
 using Microsoft.AspNetCore.Mvc;
+
+using MitsAdvisor.Web.Models;
+using MitsAdvisor.Web.Services;
 
 [ApiController]
 [Route("api/[controller]")]
@@ -19,7 +19,9 @@ public class RestaurantController(RestaurantService restaurantService)
   {
     var restaurant = restaurantService.GetById(id);
 
-    return restaurant == null ? NotFound() : restaurant;
+    return restaurant == null
+      ? NotFound()
+      : restaurant;
   }
 
   [HttpPost]

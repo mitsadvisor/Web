@@ -1,9 +1,9 @@
-namespace MitsAdvisor.MitsAdvisor.Web.Services;
-
-using global::MitsAdvisor.MitsAdvisor.Web.Data;
-using global::MitsAdvisor.MitsAdvisor.Web.Models;
+namespace MitsAdvisor.Web.Services;
 
 using Microsoft.EntityFrameworkCore;
+
+using MitsAdvisor.Web.Data;
+using MitsAdvisor.Web.Models;
 
 public class RestaurantService(MitsadvisorContext dbContext)
 {

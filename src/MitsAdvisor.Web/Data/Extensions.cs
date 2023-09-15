@@ -1,4 +1,4 @@
-namespace MitsAdvisor.MitsAdvisor.Web.Data;
+namespace MitsAdvisor.Web.Data;
 
 public static class Extensions
 {

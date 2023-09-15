@@ -11,7 +11,7 @@
     <!-- Suppresses display of the sign-on banner -->
     <NoLogo>true</NoLogo>
     <!-- Prepend organization name to default namespace -->
-    <RootNamespace>MitsAdvisor.$(MSBuildProjectName)</RootNamespace>
+    <RootNamespace>$(MSBuildProjectName)</RootNamespace>
     <!-- Enable global usings based on project type -->
     <ImplicitUsings>enable</ImplicitUsings>
     <!-- Generate documentation file and ignore warnings for undocumented elements -->

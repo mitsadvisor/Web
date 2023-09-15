@@ -3,14 +3,16 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using MitsAdvisor.Web.Data;
+
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
 
 namespace MitsAdvisor.Web.Migrations
 {
-    [DbContext(typeof(MitsadvisorContext))]
+  using global::MitsAdvisor.MitsAdvisor.Web.Data;
+
+  [DbContext(typeof(MitsadvisorContext))]
     partial class MitsadvisorContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)

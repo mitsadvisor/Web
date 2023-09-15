@@ -1,13 +1,10 @@
-﻿using System.ComponentModel.DataAnnotations;
+namespace MitsAdvisor.MitsAdvisor.Web.Models;
 
-namespace MitsAdvisor.Web.Models
+public class Menu
 {
-	public class Menu
-	{
-		public int Id { get; set; }
+  public int Id { get; set; }
 
-		public string? Name { get; set; }
+  public string? Name { get; set; }
 
-		public ICollection<MenuItem>? MenuItems { get; set;}
-	}
+  public ICollection<MenuItem>? MenuItems { get; set; }
 }

@@ -1,16 +1,13 @@
-﻿namespace MitsAdvisor.Web.Data
+namespace MitsAdvisor.MitsAdvisor.Web.Data;
+
+public static class Extensions
 {
-	public static class Extensions
-	{
-		public static void CreateDbIfNotExists(this IHost host)
-		{
-			using (var scope = host.Services.CreateScope())
-			{
-				var services = scope.ServiceProvider;
-				var dbContext = services.GetRequiredService<MitsadvisorContext>();
-				dbContext.Database.EnsureCreated();
-				DbInitializer.Initialize(dbContext);
-			}
-		}
-	}
+  public static async Task CreateDbIfNotExists(this IHost host)
+  {
+    using var scope = host.Services.CreateScope();
+    var services = scope.ServiceProvider;
+    var dbContext = services.GetRequiredService<MitsadvisorContext>();
+    await dbContext.Database.EnsureCreatedAsync();
+    await DbInitializer.Initialize(dbContext);
+  }
 }

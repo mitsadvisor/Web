@@ -1,60 +1,55 @@
-﻿using Microsoft.EntityFrameworkCore;
-using MitsAdvisor.Web.Data;
-using MitsAdvisor.Web.Models;
+namespace MitsAdvisor.MitsAdvisor.Web.Services;
 
-namespace MitsAdvisor.Web.Services
+using global::MitsAdvisor.MitsAdvisor.Web.Data;
+using global::MitsAdvisor.MitsAdvisor.Web.Models;
+
+using Microsoft.EntityFrameworkCore;
+
+public class RestaurantService(MitsadvisorContext dbContext)
 {
-	public class RestaurantService
-	{
-		private readonly MitsadvisorContext _dbContext;
-        public RestaurantService(MitsadvisorContext dbContext)
-        {
-			_dbContext = dbContext;
-        }
+  public IEnumerable<Restaurant> GetAll() => dbContext.Restaurants.AsNoTracking().ToList();
 
-		public IEnumerable<Restaurant> GetAll() => _dbContext.Restaurants.AsNoTracking().ToList();
+  public Restaurant? GetById(int id)
+    => dbContext.Restaurants
+      .Include(r => r.Menus)
+      .AsNoTracking()
+      .SingleOrDefault(r => r.Id == id);
 
-		public Restaurant? GetById(int id)
-		{
-			return _dbContext.Restaurants
-				.Include(r => r.Menus)
-				.AsNoTracking()
-				.SingleOrDefault(r=>r.Id==id);
-		}
-		
-		public Restaurant Create(Restaurant newRestaurant)
-		{
-			_dbContext.Restaurants.Add(newRestaurant);
-			_dbContext.SaveChanges();
+  public Restaurant Create(Restaurant newRestaurant)
+  {
+    dbContext.Restaurants.Add(newRestaurant);
+    dbContext.SaveChanges();
 
-			return newRestaurant;
-		}
+    return newRestaurant;
+  }
 
-		public void AddMenu(int restaurantId, int menuId)
-		{
-			var restaurantToUpdate = _dbContext.Restaurants.Find(restaurantId);
-			var menuToAdd = _dbContext.Menus.Find(menuId);
+  public void AddMenu(int restaurantId, int menuId)
+  {
+    var restaurantToUpdate = dbContext.Restaurants.Find(restaurantId);
+    var menuToAdd = dbContext.Menus.Find(menuId);
 
-			if (restaurantToUpdate is null || menuToAdd is null) 
-				throw new InvalidOperationException("Pizza or topping does not exist");
+    if (restaurantToUpdate is null || menuToAdd is null)
+    {
+      throw new InvalidOperationException("Pizza or topping does not exist");
+    }
 
-			restaurantToUpdate.Menus ??= new List<Menu>();
+    restaurantToUpdate.Menus ??= new List<Menu>();
 
-			restaurantToUpdate.Menus.Add(menuToAdd);
+    restaurantToUpdate.Menus.Add(menuToAdd);
 
-			_dbContext.SaveChanges();
-		}
+    dbContext.SaveChanges();
+  }
 
-		public void DeleteById(int id)
-		{
-			var restaurantToDelete = _dbContext.Restaurants.Find(id);
+  public void DeleteById(int id)
+  {
+    var restaurantToDelete = dbContext.Restaurants.Find(id);
 
-			if (restaurantToDelete is not null)
-			{
-				_dbContext.Restaurants.Remove(restaurantToDelete);
-				_dbContext.SaveChanges();
-			}
-		}
+    if (restaurantToDelete is null)
+    {
+      return;
+    }
 
-	}
+    dbContext.Restaurants.Remove(restaurantToDelete);
+    dbContext.SaveChanges();
+  }
 }

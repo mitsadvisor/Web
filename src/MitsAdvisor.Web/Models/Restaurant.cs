@@ -1,16 +1,14 @@
-﻿using System.ComponentModel.DataAnnotations;
+namespace MitsAdvisor.MitsAdvisor.Web.Models;
 
-namespace MitsAdvisor.Web.Models
+using System.ComponentModel.DataAnnotations;
+
+public class Restaurant
 {
-	public class Restaurant
-	{
-		public int Id { get; set; }
+  public int Id { get; set; }
 
-		[Required]
-		[MaxLength(100)]
-		public string? Name { get; set; }
+  [Required]
+  [MaxLength(100)]
+  public string? Name { get; set; }
 
-		public ICollection<Menu>? Menus { get; set; }
-
-	}
+  public ICollection<Menu>? Menus { get; set; }
 }

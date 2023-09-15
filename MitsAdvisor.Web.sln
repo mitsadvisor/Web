@@ -7,6 +7,22 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MitsAdvisor.Web", "src\Mits
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{35CDACAF-81DB-4FCF-9370-9ACD8D0F8FB1}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Configuration", "Configuration", "{346472E9-937F-4FDC-A939-23BCAC157E2A}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+		.gitignore = .gitignore
+		.globalconfig = .globalconfig
+		.runsettings = .runsettings
+		Directory.Build.props = Directory.Build.props
+		Directory.Build.targets = Directory.Build.targets
+		Directory.Packages.props = Directory.Packages.props
+		dotnet.ruleset = dotnet.ruleset
+		GitVersion.yml = GitVersion.yml
+		LICENSE.md = LICENSE.md
+		stylecop.json = stylecop.json
+		xunit.runner.json = xunit.runner.json
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

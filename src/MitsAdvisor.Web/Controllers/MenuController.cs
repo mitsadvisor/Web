@@ -1,18 +1,9 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿namespace MitsAdvisor.MitsAdvisor.Web.Controllers;
 
-namespace MitsAdvisor.Web.Controllers
+using Microsoft.AspNetCore.Mvc;
+
+[ApiController]
+[Route("api/[controller]")]
+public class MenuController : ControllerBase
 {
-	[ApiController]
-	[Route("api/[controller]")]
-	public class MenuController: ControllerBase
-	{
-		//[HttpGet]
-		//public IActionResult<List<Menu>>
-
-		//[HttpGet("id")]
-		//public IActionResult Get(int id)
-		//{
-
-		//}
-	}
 }

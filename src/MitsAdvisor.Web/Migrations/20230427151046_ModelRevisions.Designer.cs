@@ -4,14 +4,16 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using MitsAdvisor.Web.Data;
+
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
 
 namespace MitsAdvisor.Web.Migrations
 {
-    [DbContext(typeof(MitsadvisorContext))]
+  using global::MitsAdvisor.MitsAdvisor.Web.Data;
+
+  [DbContext(typeof(MitsadvisorContext))]
     [Migration("20230427151046_ModelRevisions")]
     partial class ModelRevisions
     {

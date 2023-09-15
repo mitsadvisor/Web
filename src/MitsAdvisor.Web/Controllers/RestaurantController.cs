@@ -1,64 +1,51 @@
-﻿using Microsoft.AspNetCore.Http;
+namespace MitsAdvisor.MitsAdvisor.Web.Controllers;
+
+using global::MitsAdvisor.MitsAdvisor.Web.Models;
+using global::MitsAdvisor.MitsAdvisor.Web.Services;
+
 using Microsoft.AspNetCore.Mvc;
-using MitsAdvisor.Web.Models;
-using MitsAdvisor.Web.Services;
 
-namespace MitsAdvisor.Web.Controllers
+[ApiController]
+[Route("api/[controller]")]
+public class RestaurantController(RestaurantService restaurantService)
+  : ControllerBase
 {
-	[ApiController]
-	[Route("api/[controller]")]
-	public class RestaurantController : ControllerBase
-	{
-		RestaurantService _service;
-        public RestaurantController(RestaurantService restaurantService)
-        {
-            _service = restaurantService;
-        }
+  [HttpGet]
+  public ActionResult<List<Restaurant>> GetAll() =>
+    restaurantService.GetAll().ToList();
 
-		[HttpGet]
-		public ActionResult<List<Restaurant>> GetAll() =>
-			_service.GetAll().ToList();
+  [HttpGet("{id}")]
+  public ActionResult<Restaurant> Get(int id)
+  {
+    var restaurant = restaurantService.GetById(id);
 
-		[HttpGet("{id}")]
-		public ActionResult<Restaurant> Get(int id)
-		{
-			var restaurant = _service.GetById(id);
+    return restaurant == null ? NotFound() : restaurant;
+  }
 
-			if (restaurant == null) return NotFound();
+  [HttpPost]
+  [ProducesResponseType(StatusCodes.Status201Created)]
+  [ProducesDefaultResponseType]
+  public IActionResult Create(Restaurant newRestaurant)
+  {
+    restaurantService.Create(newRestaurant);
+    return CreatedAtAction(nameof(Get), new { id = newRestaurant.Id }, newRestaurant);
+  }
 
-			return restaurant;
-		}
+  [HttpDelete("id")]
+  [ProducesResponseType(StatusCodes.Status204NoContent)]
+  [ProducesResponseType(StatusCodes.Status404NotFound)]
+  [ProducesDefaultResponseType]
+  public IActionResult Delete(int id)
+  {
+    var restaurant = restaurantService.GetById(id);
 
-		[HttpPost]
-		public IActionResult Create(Restaurant newRestaurant)
-		{
-			_service.Create(newRestaurant);
-			return CreatedAtAction(nameof(Get), new { id = newRestaurant.Id }, newRestaurant);
-		}
+    if (restaurant is null)
+    {
+      return NotFound();
+    }
 
-		//[HttpPut("id")]
-		//public IActionResult Update(int id, Restaurant restaurant)
-		//{
-		//	if (id != restaurant.Id) return BadRequest();
+    restaurantService.DeleteById(id);
 
-		//	var existingRestaurant = _service.GetById(id);
-		//	if (existingRestaurant is null) return NotFound();
-		//	_service..Update(restaurant);
-
-		//	return NoContent();
-		//}
-
-		[HttpDelete("id")]
-		public IActionResult Delete(int id)
-		{
-			var restaurant = _service.GetById(id);
-
-			if (restaurant is null) return NotFound();
-
-			_service.DeleteById(id);
-
-			return NoContent();
-		}
-
-	}
-}	
+    return NoContent();
+  }
+}

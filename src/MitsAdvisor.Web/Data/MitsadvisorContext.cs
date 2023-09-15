@@ -1,26 +1,23 @@
-﻿using Microsoft.EntityFrameworkCore;
-using MitsAdvisor.Web.Models;
-using System.Data.Common;
+namespace MitsAdvisor.MitsAdvisor.Web.Data;
 
-namespace MitsAdvisor.Web.Data
+using global::MitsAdvisor.MitsAdvisor.Web.Models;
+
+using Microsoft.EntityFrameworkCore;
+
+public class MitsadvisorContext(IConfiguration configuration)
+  : DbContext
 {
-	public class MitsadvisorContext:DbContext
-	{
-		protected readonly IConfiguration Configuration;
+  public DbSet<Restaurant> Restaurants => Set<Restaurant>();
 
-        public MitsadvisorContext(IConfiguration configuration)
-        {
-                Configuration = configuration;
-        }
+  public DbSet<Menu> Menus => Set<Menu>();
 
-		protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-		{
-			// connect to postgres with connection string from app settings
-			optionsBuilder.UseNpgsql(Configuration.GetConnectionString("WebApiDatabase"));
-		}
+  public DbSet<MenuItem> MenuItems => Set<MenuItem>();
 
-		public DbSet<Restaurant> Restaurants=> Set<Restaurant>();
-		public DbSet<Menu> Menus => Set<Menu>();
-		public DbSet<MenuItem> MenuItems => Set<MenuItem>();
-	}
+  protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+  {
+    if (!optionsBuilder.IsConfigured)
+    {
+      optionsBuilder.UseNpgsql(configuration.GetConnectionString("WebApiDatabase"));
+    }
+  }
 }

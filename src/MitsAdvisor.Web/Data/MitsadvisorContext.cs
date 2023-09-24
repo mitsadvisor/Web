@@ -12,9 +12,21 @@ public class MitsadvisorContext : DbContext
 
   public DbSet<Restaurant> Restaurants => Set<Restaurant>();
 
-  public DbSet<Menu> Menus => Set<Menu>();
-
   public DbSet<MenuItem> MenuItems => Set<MenuItem>();
+
+  public DbSet<Chain> Chains => Set<Chain>();
+
+  public DbSet<CuisineType> CuisineTypes => Set<CuisineType>();
+
+  public DbSet<RestaurantCuisineType> RestaurantCuisineTypes => Set<RestaurantCuisineType>();
+
+  public DbSet<UserCuisineType> UserCuisineTypes => Set<UserCuisineType>();
+
+  public DbSet<UserRestaurantToTry> UserRestaurantsToTry => Set<UserRestaurantToTry>();
+
+  public DbSet<UserRestaurantVisited> UserRestaurantsVisited => Set<UserRestaurantVisited>();
+
+  public DbSet<Post> posts => Set<Post>();
 
   protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
   {

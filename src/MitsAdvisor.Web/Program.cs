@@ -27,7 +27,7 @@ builder.Services.AddScoped<RestaurantService>();
 
 try
 {
-  var app = builder.Build(); // possible exceptions
+  var app = builder.Build(); 
 
   if (app.Environment.IsDevelopment())
   {
@@ -43,7 +43,7 @@ try
 
   await app.CreateDbIfNotExists();
 
-  app.Run(); // possible exceptions
+  app.Run();
 }
 catch (Exception e)
 {

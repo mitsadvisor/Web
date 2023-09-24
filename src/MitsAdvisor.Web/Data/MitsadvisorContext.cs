@@ -3,9 +3,13 @@ namespace MitsAdvisor.Web.Data;
 using Microsoft.EntityFrameworkCore;
 using MitsAdvisor.Web.Models;
 
-public class MitsadvisorContext(IConfiguration configuration)
-  : DbContext
+public class MitsadvisorContext : DbContext
 {
+  public MitsadvisorContext(DbContextOptions<MitsadvisorContext> options)
+    : base(options)
+  {
+  }
+
   public DbSet<Restaurant> Restaurants => Set<Restaurant>();
 
   public DbSet<Menu> Menus => Set<Menu>();
@@ -16,7 +20,7 @@ public class MitsadvisorContext(IConfiguration configuration)
   {
     if (!optionsBuilder.IsConfigured)
     {
-      optionsBuilder.UseNpgsql(configuration.GetConnectionString("WebApiDatabase"));
+      optionsBuilder.UseNpgsql("Host=localhost;Database=Test;Username=dimtsap;Password=password;");
     }
   }
 }

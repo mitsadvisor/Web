@@ -2,13 +2,24 @@ namespace MitsAdvisor.Web.Models;
 
 using System.ComponentModel.DataAnnotations;
 
-public class Restaurant
+using Microsoft.Extensions.Diagnostics.HealthChecks;
+
+using MitsAdvisor.Web.Models.Interfaces;
+
+public class Restaurant : IEntity<long>
 {
-  public int Id { get; set; }
+  public long Id { get; set; }
 
-  [Required]
-  [MaxLength(100)]
-  public string? Name { get; set; }
+  public string Name { get; set; } = string.Empty;
 
-  public ICollection<Menu>? Menus { get; set; }
+  public string Description { get; set; } = string.Empty;
+
+  public decimal UserRating { get; set; }
+
+  public decimal MitsadvisorRating { get; set; }
+
+  public string Neighborhood { get; set; }
+
+  public long? ChainId { get; set; }
+
 }

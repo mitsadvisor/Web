@@ -1,5 +1,7 @@
 namespace MitsAdvisor.Web.Models;
 
+using Microsoft.EntityFrameworkCore;
+
 using MitsAdvisor.Web.Models.Interfaces;
 
 public class Rating : IEntity<long>
@@ -11,4 +13,11 @@ public class Rating : IEntity<long>
   public long RestarantId { get; set; }
 
   public Guid UserId { get; set; }
+
+
+
+  public static void OnModelCreating(ModelBuilder modelBuilder)
+  {
+
+  }
 }

@@ -1,6 +1,10 @@
 namespace MitsAdvisor.Web.Data;
 
+using System.Diagnostics.Metrics;
+
 using Microsoft.EntityFrameworkCore;
+
+using MitsAdvisor.Web.Joins;
 using MitsAdvisor.Web.Models;
 
 public class MitsadvisorContext : DbContext
@@ -26,7 +30,7 @@ public class MitsadvisorContext : DbContext
 
   public DbSet<UserRestaurantVisited> UserRestaurantsVisited => Set<UserRestaurantVisited>();
 
-  public DbSet<Post> posts => Set<Post>();
+  public DbSet<Post> Posts => Set<Post>();
 
   protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
   {
@@ -34,5 +38,21 @@ public class MitsadvisorContext : DbContext
     {
       optionsBuilder.UseNpgsql("Host=localhost;Database=Test;Username=dimtsap;Password=password;");
     }
+  }
+
+  protected override void OnModelCreating(ModelBuilder modelBuilder)
+  {
+    base.OnModelCreating(modelBuilder);
+    Chain.OnModelCreating(modelBuilder);
+    CuisineType.OnModelCreating(modelBuilder);
+    MenuItem.OnModelCreating(modelBuilder);
+    Post.OnModelCreating(modelBuilder);
+    Rating.OnModelCreating(modelBuilder);
+    Restaurant.OnModelCreating(modelBuilder);
+    RestaurantCuisineType.OnModelCreating(modelBuilder);
+    User.OnModelCreating(modelBuilder);
+    UserCuisineType.OnModelCreating(modelBuilder);
+    UserRestaurantToTry.OnModelCreating(modelBuilder);
+    UserRestaurantVisited.OnModelCreating(modelBuilder);
   }
 }

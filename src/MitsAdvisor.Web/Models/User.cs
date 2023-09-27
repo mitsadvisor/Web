@@ -1,5 +1,7 @@
 namespace MitsAdvisor.Web.Models;
 
+using Microsoft.EntityFrameworkCore;
+
 using MitsAdvisor.Web.Models.Interfaces;
 
 public class User : IEntity<Guid>
@@ -17,4 +19,13 @@ public class User : IEntity<Guid>
   public string PhoneNumber { get; set; } = string.Empty;
 
   public string PhotoUrl { get; set; } = string.Empty;
+
+  public ICollection<Rating> Ratings { get; } = new List<Rating>(0);
+
+  public ICollection<CuisineType> FavouriteCuisines { get; } = new List<CuisineType>(0);
+
+  public static void OnModelCreating(ModelBuilder modelBuilder)
+  {
+
+  }
 }

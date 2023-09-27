@@ -16,9 +16,9 @@ public class Chain : IEntity<long>
 
   public static void OnModelCreating(ModelBuilder modelBuilder)
   {
-    modelBuilder.Entity<Chain>(e =>
+    modelBuilder.Entity<Chain>(c =>
     {
-      e.HasKey(x => x.Id);
+      c.HasKey(x => x.Id);
     });
   }
 }

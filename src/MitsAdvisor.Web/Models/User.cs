@@ -2,6 +2,7 @@ namespace MitsAdvisor.Web.Models;
 
 using Microsoft.EntityFrameworkCore;
 
+using MitsAdvisor.Web.Joins;
 using MitsAdvisor.Web.Models.Interfaces;
 
 public class User : IEntity<Guid>
@@ -20,12 +21,18 @@ public class User : IEntity<Guid>
 
   public string PhotoUrl { get; set; } = string.Empty;
 
+  public ICollection<Post> Posts { get; } = new List<Post>(0);
+
   public ICollection<Rating> Ratings { get; } = new List<Rating>(0);
 
-  public ICollection<CuisineType> FavouriteCuisines { get; } = new List<CuisineType>(0);
+  public ICollection<UserCuisineType> UserCuisineTypes { get; } = new List<UserCuisineType>(0);
+
+  public ICollection<UserRestaurantToTry> UserRestaurantsToTry { get; } = new List<UserRestaurantToTry>(0);
+
+  public ICollection<UserRestaurantVisited> UserRestaurantsVisited { get; } = new List<UserRestaurantVisited>(0);
 
   public static void OnModelCreating(ModelBuilder modelBuilder)
   {
-
+    modelBuilder.Entity<User>().HasKey(u => u.Id);
   }
 }

@@ -16,13 +16,9 @@ public class Post : IEntity<long>
 
   public User User { get; set; }
 
-  public Guid UserId { get; set; }
-
   public DateTime Created { get; set; }
 
   public Restaurant Restaurant { get; set; }
-
-  public long RestaurantId { get; set; }
 
   public static void OnModelCreating(ModelBuilder modelBuilder)
   {
@@ -31,12 +27,12 @@ public class Post : IEntity<long>
       p.HasKey(x => x.Id);
 
       p.HasOne(x => x.Restaurant)
-      .WithMany(r => r.Posts)
-      .HasForeignKey(x => x.RestaurantId);
+      .WithMany()
+      .IsRequired(true);
 
       p.HasOne(x => x.User)
-      .WithMany(u => u.Posts)
-      .HasForeignKey(x => x.UserId);
+      .WithMany()
+      .IsRequired(true);
     });
   }
 }

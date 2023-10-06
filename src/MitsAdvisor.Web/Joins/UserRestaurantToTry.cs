@@ -6,25 +6,23 @@ using MitsAdvisor.Web.Models;
 
 public class UserRestaurantToTry
 {
-  public User user { get; set; }
-  public Guid UserId { get; set; }
+  public User User { get; set; }
 
   public Restaurant Restaurant { get; set; }
-  public long RestaurantId { get; set; }
 
   public static void OnModelCreating(ModelBuilder modelBuilder)
   {
     modelBuilder.Entity<UserRestaurantToTry>(ur =>
     {
-      ur.HasKey(x => new { x.UserId, x.RestaurantId });
+      ur.HasOne(e => e.User)
+      .WithMany()
+      .HasForeignKey("UserId");
 
-      ur.HasOne<User>()
-      .WithMany(u => u.UserRestaurantsToTry)
-      .HasForeignKey(ur => ur.UserId);
+      ur.HasOne(e => e.Restaurant)
+      .WithMany()
+      .HasForeignKey("RestaurantId");
 
-      ur.HasOne<Restaurant>()
-      .WithMany(r => r.UserRestaurantsToTry)
-      .HasForeignKey(ur => ur.RestaurantId);
+      ur.HasKey("UserId", "RestaurantId");
     });
   }
 }

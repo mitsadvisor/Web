@@ -7,24 +7,22 @@ using MitsAdvisor.Web.Models;
 public class UserCuisineType
 {
   public UserCuisineType User { get; set; }
-  public Guid UserId { get; set; }
 
   public CuisineType CuisineType { get; set; }
-  public long CuisineId { get; set; }
 
   public static void OnModelCreating(ModelBuilder modelBuilder)
   {
     modelBuilder.Entity<UserCuisineType>(uc =>
     {
-      uc.HasKey(x => new { x.UserId, x.CuisineId });
+      uc.HasOne(e => e.User)
+      .WithMany()
+      .HasForeignKey("UserId");
 
-      uc.HasOne<User>()
-      .WithMany(u => u.UserCuisineTypes)
-      .HasForeignKey(x => x.CuisineId);
+      uc.HasOne(e => e.CuisineType)
+      .WithMany()
+      .HasForeignKey("CuisineId");
 
-      uc.HasOne<CuisineType>()
-      .WithMany(c => c.UserCuisines)
-      .HasForeignKey(x => x.CuisineId);
+      uc.HasKey("UserId", "CuisineId");
     });
   }
 }

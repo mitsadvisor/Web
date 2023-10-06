@@ -14,8 +14,6 @@ public class MenuItem : IEntity<long>
 
   public Restaurant Restaurant { get; set; }
 
-  public long RestaurantId { get; set; }
-
   public static void OnModelCreating(ModelBuilder modelBuilder)
   {
     modelBuilder.Entity<MenuItem>(i =>
@@ -23,8 +21,8 @@ public class MenuItem : IEntity<long>
       i.HasKey(x => x.Id);
 
       i.HasOne<Restaurant>()
-      .WithMany(r => r.MenuItems)
-      .HasForeignKey(i => i.RestaurantId);
+      .WithMany()
+      .IsRequired(true);
     });
   }
 }

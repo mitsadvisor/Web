@@ -20,7 +20,7 @@ public class MenuItem : IEntity<long>
     {
       i.HasKey(x => x.Id);
 
-      i.HasOne<Restaurant>()
+      i.HasOne(e => e.Restaurant)
       .WithMany()
       .IsRequired(true);
     });

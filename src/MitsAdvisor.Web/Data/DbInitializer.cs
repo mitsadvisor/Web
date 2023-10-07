@@ -6,18 +6,18 @@ public static class DbInitializer
 {
   public static async Task Initialize(MitsadvisorContext dbContext)
   {
-    if (dbContext.Restaurants.Any())
-    {
-      return;
-    }
+  //  if (dbContext.Restaurants.Any())
+  //  {
+  //    return;
+  //  }
 
-    var elaikonRestaurant = new Restaurant() { Name = "Ελαϊκόν" };
+  //  var elaikonRestaurant = new Restaurant() { Name = "Ελαϊκόν" };
 
-    var kyrAristosRestaurant = new Restaurant() { Name = "Κυρ Αρίστος" };
+  //  var kyrAristosRestaurant = new Restaurant() { Name = "Κυρ Αρίστος" };
 
-    var restaurants = new List<Restaurant>() { elaikonRestaurant, kyrAristosRestaurant };
+  //  var restaurants = new List<Restaurant>() { elaikonRestaurant, kyrAristosRestaurant };
 
-    dbContext.Restaurants.AddRange(restaurants);
-    await dbContext.SaveChangesAsync();
+  //  dbContext.Restaurants.AddRange(restaurants);
+  //  await dbContext.SaveChangesAsync();
   }
 }

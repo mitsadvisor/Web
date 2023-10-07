@@ -6,7 +6,7 @@ using MitsAdvisor.Web.Models;
 
 public class UserCuisineType
 {
-  public UserCuisineType User { get; set; }
+  public User User { get; set; }
 
   public CuisineType CuisineType { get; set; }
 

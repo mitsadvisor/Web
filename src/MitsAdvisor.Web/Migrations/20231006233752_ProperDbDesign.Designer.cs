@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MitsAdvisor.Web.Data;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace MitsAdvisor.Web.Migrations
 {
     [DbContext(typeof(MitsadvisorContext))]
-    partial class MitsadvisorContextModelSnapshot : ModelSnapshot
+    [Migration("20231006233752_ProperDbDesign")]
+    partial class ProperDbDesign
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -139,9 +142,14 @@ namespace MitsAdvisor.Web.Migrations
                     b.Property<long>("RestaurantId")
                         .HasColumnType("bigint");
 
+                    b.Property<long>("RestaurantId1")
+                        .HasColumnType("bigint");
+
                     b.HasKey("Id");
 
                     b.HasIndex("RestaurantId");
+
+                    b.HasIndex("RestaurantId1");
 
                     b.ToTable("MenuItems");
                 });
@@ -358,6 +366,12 @@ namespace MitsAdvisor.Web.Migrations
                     b.HasOne("MitsAdvisor.Web.Models.Restaurant", "Restaurant")
                         .WithMany()
                         .HasForeignKey("RestaurantId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("MitsAdvisor.Web.Models.Restaurant", null)
+                        .WithMany()
+                        .HasForeignKey("RestaurantId1")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

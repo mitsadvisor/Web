@@ -5,14 +5,17 @@ using Microsoft.EntityFrameworkCore;
 using MitsAdvisor.Web.Data;
 using MitsAdvisor.Web.Models;
 
+public class SearchCriteria
+{
+
+}
+
 public class RestaurantService(MitsadvisorContext dbContext)
 {
-  public IEnumerable<Restaurant> GetAll() => dbContext.Restaurants.AsNoTracking().ToList();
+  public IEnumerable<Restaurant> GetAll(SearchCriteria criteria, CancellationToken cancellationToken) => dbContext.Restaurants.ToList();
 
-  public Restaurant? GetById(int id)
+  public Restaurant? GetById(int id, CancellationToken cancellationToken)
     => dbContext.Restaurants
-      .Include(r => r.Menus)
-      .AsNoTracking()
       .SingleOrDefault(r => r.Id == id);
 
   public Restaurant Create(Restaurant newRestaurant)
@@ -21,23 +24,6 @@ public class RestaurantService(MitsadvisorContext dbContext)
     dbContext.SaveChanges();
 
     return newRestaurant;
-  }
-
-  public void AddMenu(int restaurantId, int menuId)
-  {
-    var restaurantToUpdate = dbContext.Restaurants.Find(restaurantId);
-    var menuToAdd = dbContext.Menus.Find(menuId);
-
-    if (restaurantToUpdate is null || menuToAdd is null)
-    {
-      throw new InvalidOperationException("Pizza or topping does not exist");
-    }
-
-    restaurantToUpdate.Menus ??= new List<Menu>();
-
-    restaurantToUpdate.Menus.Add(menuToAdd);
-
-    dbContext.SaveChanges();
   }
 
   public void DeleteById(int id)

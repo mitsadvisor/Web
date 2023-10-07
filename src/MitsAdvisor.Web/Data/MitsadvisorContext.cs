@@ -36,7 +36,7 @@ public class MitsadvisorContext : DbContext
   {
     if (!optionsBuilder.IsConfigured)
     {
-      optionsBuilder.UseNpgsql("Host=localhost;Database=Test;Username=dimtsap;Password=password;");
+      optionsBuilder.UseNpgsql("Host=localhost;Database=Test;Username=postgres;Password=postgres;");
     }
   }
 
